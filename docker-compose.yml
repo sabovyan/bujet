@@ -1,0 +1,21 @@
+# Use postgres/example user/password credentials
+version: '3.8'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local # Define the driver and options under the volume name
+    driver_opts:
+      type: none
+      device: ./postgres
+      o: bind
