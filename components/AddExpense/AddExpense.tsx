@@ -4,7 +4,7 @@ import { FormField, NativeSelect } from '../formField';
 import { Button } from '../ui/button';
 import { AddExpenseSheet } from './AddExpense.sheet';
 import { AddExpenseDialog } from './AddExpense.dialog';
-import { hello, saveExpense } from './AddExpense.server';
+import { saveExpense } from './AddExpense.server';
 
 const addExpenseText = {
   title: 'Another One ?',
@@ -30,7 +30,6 @@ export function AddExpense({ deviceType = 'desktop' }: Props) {
   return (
     <AddExpenseDialog title={addExpenseText.title}>
       <AddExpenseForm />
-      <Button formAction={hello}>hello</Button>
     </AddExpenseDialog>
   );
 }
