@@ -31,7 +31,7 @@ export function NativeSelect({
     <div className="mb-3 flex flex-col items-start">
       <Label htmlFor={id || name}>{label}</Label>
       <select
-        id={id}
+        id={id || name}
         name={name}
         {...selectProps}
         className="w-full bg-white border border-1 px-3 py-1"

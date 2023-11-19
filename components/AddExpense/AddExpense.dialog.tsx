@@ -14,7 +14,7 @@ export function AddExpenseDialog({
 }: PropsWithChildren<{ title: string }>) {
   return (
     <Dialog>
-      <DialogTrigger className="w-16 aspect-square bg-primary text-white text-2xl border border-white rounded-full shadow-md -translate-y-8">
+      <DialogTrigger className="w-16 aspect-square bg-primary text-white text-2xl border border-white rounded-full shadow-md">
         +
       </DialogTrigger>
 
