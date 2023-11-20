@@ -1,0 +1,2 @@
+- handle session issue
+- fix ui for google auth

@@ -1,7 +1,17 @@
+import { Button } from '@/components/ui/button';
+import { signIn } from '@/lib/auth';
+
 export default function SignIn() {
   return (
     <main>
-      <h1>sign in</h1>
+      <form
+        action={async () => {
+          'use server';
+          await signIn('google');
+        }}
+      >
+        <Button>Sign In</Button>
+      </form>
     </main>
   );
 }
