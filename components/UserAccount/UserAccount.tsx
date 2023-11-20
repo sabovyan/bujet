@@ -1,11 +1,7 @@
 import { auth } from '@/lib/auth';
-import { RouteType } from 'next/dist/lib/load-custom-routes';
-import Link, { LinkProps } from 'next/link';
-import React, { PropsWithChildren } from 'react';
-
-function Anchor(props: PropsWithChildren<LinkProps<RouteType>>) {
-  return <Link {...props} className="border px-4 py-2 text-lg" />;
-}
+import { Button } from '../ui/button';
+import Image from 'next/image';
+import { Anchor } from '../Anchor';
 
 export async function UserAccount() {
   const session = await auth();
