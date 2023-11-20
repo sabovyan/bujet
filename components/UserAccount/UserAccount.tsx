@@ -12,13 +12,14 @@ import {
   DropdownMenuItem
 } from '../ui/dropdown-menu';
 import { GoogleSignIn, Logout } from './AuthComponents';
+import profileImage from './profile-user.png';
 
 type Props = {
   session: Session | null;
 };
 
 export function UserAccount({ session }: Props) {
-  const imageSrc = session?.user?.image || '/profile-user.png';
+  const imageSrc = session?.user?.image || profileImage;
 
   return (
     <DropdownMenu>
