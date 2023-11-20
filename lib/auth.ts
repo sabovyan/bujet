@@ -10,17 +10,18 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
   //   error: '/auth/error'
   // },
   providers: [Google],
-  adapter: PrismaAdapter(prisma),
-  callbacks: {
-    session: ({ session, token }) => {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id,
-          randomKey: token.randomKey
-        }
-      };
-    }
-  }
+  adapter: PrismaAdapter(prisma)
+  // callbacks: {
+  //   session: ({ session, token, user,  }) => {
+  //     console.log({session, token, user});
+  //     return {
+  //       ...session,
+  //       user: {
+  //         ...session.user,
+  //         id: token.id,
+  //         randomKey: token.randomKey
+  //       }
+  //     };
+  //   }
+  // }
 });
