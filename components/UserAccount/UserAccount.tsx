@@ -2,6 +2,7 @@
 
 import { Session } from 'next-auth';
 import Image from 'next/image';
+
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -11,7 +12,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem
 } from '../ui/dropdown-menu';
-import { GoogleSignIn, Logout } from './AuthComponents';
+import { GoogleSignIn, Logout, WebAuthn } from './AuthComponents';
 import profileImage from './profile-user.png';
 
 type Props = {
@@ -50,8 +51,8 @@ export function UserAccount({ session }: Props) {
               <GoogleSignIn />
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="bg-gray-200 italic bg-secondary text-sm text-gray-950">
-              Web Authn comming soon
+            <DropdownMenuItem>
+              <WebAuthn />
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
