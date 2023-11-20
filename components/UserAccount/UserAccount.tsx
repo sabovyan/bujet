@@ -1,18 +1,61 @@
-import { auth } from '@/lib/auth';
-import { Button } from '../ui/button';
+'use client';
+
+import { Session } from 'next-auth';
 import Image from 'next/image';
-import { Anchor } from '../Anchor';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuGroup,
+  DropdownMenuItem
+} from '../ui/dropdown-menu';
+import { GoogleSignIn } from '../ui/UserMenagement';
+import { Logout } from './Logout';
 
-export async function UserAccount() {
-  const session = await auth();
+type Props = {
+  session: Session | null;
+};
 
-  return !session?.user ? (
-    <div className="flex gap-4">
-      <pre>{JSON.stringify(session, null, 2)}</pre>
-      <Anchor href="/sign-in">Sign In</Anchor>
-      <Anchor href="/sign-up">Sign Up</Anchor>
-    </div>
-  ) : (
-    <pre>{JSON.stringify(session.user, null, 2)}</pre>
+export function UserAccount({ session }: Props) {
+  const imageSrc = session?.user?.image || '/profile-user.png';
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Image
+          src={imageSrc}
+          alt="profile image"
+          width={24}
+          height={24}
+          className="rounded-full"
+        />
+      </DropdownMenuTrigger>
+      {session?.user ? (
+        <DropdownMenuContent>
+          <DropdownMenuLabel>{session.user.name}</DropdownMenuLabel>
+          <DropdownMenuGroup>
+            <DropdownMenuItem>
+              <Logout />
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      ) : (
+        <DropdownMenuContent>
+          <DropdownMenuLabel>Account</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            <DropdownMenuItem>
+              <GoogleSignIn />
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <p className="text-lg">Web Authn comming soon</p>
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      )}
+    </DropdownMenu>
   );
 }

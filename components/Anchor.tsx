@@ -3,5 +3,5 @@ import Link, { LinkProps } from 'next/link';
 import { PropsWithChildren } from 'react';
 
 export function Anchor(props: PropsWithChildren<LinkProps<RouteType>>) {
-  return <Link {...props} className="border px-4 py-2 text-lg" />;
+  return <Link {...props} className="text-lg w-full" />;
 }
