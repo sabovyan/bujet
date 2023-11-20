@@ -11,8 +11,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem
 } from '../ui/dropdown-menu';
-import { GoogleSignIn } from '../ui/UserMenagement';
-import { Logout } from './Logout';
+import { GoogleSignIn, Logout } from './AuthComponents';
 
 type Props = {
   session: Session | null;
@@ -50,8 +49,8 @@ export function UserAccount({ session }: Props) {
               <GoogleSignIn />
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <p className="text-lg">Web Authn comming soon</p>
+            <DropdownMenuItem className="bg-gray-200 italic bg-secondary text-sm text-gray-950">
+              Web Authn comming soon
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
