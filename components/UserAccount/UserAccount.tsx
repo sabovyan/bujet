@@ -5,6 +5,7 @@ import { Session } from 'next-auth';
 
 import { GoogleSignIn, Logout, WebAuthn } from './AuthComponents';
 import profileImage from './profile-user.png';
+import { Button } from '../ui/button';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -25,13 +26,15 @@ export function UserAccount({ session }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Image
-          src={imageSrc}
-          alt="profile image"
-          width={24}
-          height={24}
-          className="rounded-full"
-        />
+        <Button variant="ghost" size="icon">
+          <Image
+            src={imageSrc}
+            alt="profile image"
+            width={32}
+            height={32}
+            className="rounded-full"
+          />
+        </Button>
       </DropdownMenuTrigger>
       {session?.user ? (
         <DropdownMenuContent>
