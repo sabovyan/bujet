@@ -23,7 +23,7 @@ jobs:
     - name: Install Dependencies
       run: pnpm install
 
-    - name: 11111111111111111
+    - name: Add generated prisma types
       run: pnpm exec prisma generate
 
     - name: Lint Project
