@@ -2,8 +2,9 @@ import Image from 'next/image';
 
 import { goolgeSignInAction, signOutAction } from '@/app/actions/auth.actions';
 import { Button } from '@/components/ui/button';
-import { GoogleIcon } from './GoogleSvg';
+
 import fingerPrint from './fingerprint.png';
+import { GoogleIcon } from './GoogleSvg';
 
 export function GoogleSignIn() {
   return (

@@ -1,8 +1,10 @@
 'use client';
 
-import { Session } from 'next-auth';
 import Image from 'next/image';
+import { Session } from 'next-auth';
 
+import { GoogleSignIn, Logout, WebAuthn } from './AuthComponents';
+import profileImage from './profile-user.png';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -12,8 +14,6 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem
 } from '../ui/dropdown-menu';
-import { GoogleSignIn, Logout, WebAuthn } from './AuthComponents';
-import profileImage from './profile-user.png';
 
 type Props = {
   session: Session | null;

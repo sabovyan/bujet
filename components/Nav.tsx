@@ -1,8 +1,10 @@
-import { userAgent } from 'next/server';
-// import { AddExpense } from './AddExpense/AddExpense';
 import { headers } from 'next/headers';
-import { UserAccount } from './UserAccount/UserAccount';
+import { userAgent } from 'next/server';
+
 import { auth } from '@/lib/auth';
+
+// import { AddExpense } from './AddExpense/AddExpense';
+import { UserAccount } from './UserAccount/UserAccount';
 
 export async function Nav() {
   const headersList = headers();
