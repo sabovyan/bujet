@@ -14,7 +14,7 @@ export async function Nav() {
   const session = await auth();
 
   return (
-    <nav className="fixed bottom-0 w-full justify-end items-center flex p-2 border">
+    <nav className="fixed bottom-0 w-full justify-end items-center flex px-4 py-2 border">
       {/* TODO move to general place */}
       {/* <AddExpense deviceType={deviceType || 'desktop'} /> */}
       <UserAccount session={session} />
