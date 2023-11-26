@@ -38,14 +38,14 @@ model Session {
 }
 
 model User {
-  id            String      @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
-  email         String?     @unique
+  email         String?   @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  UserGroup     UserGroup[]
+  spaces        Space[]
 }
 
 model VerificationToken {
@@ -56,14 +56,8 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model UserGroup {
+model Space {
   id    Int    @id @default(autoincrement())
   name  String
   users User[]
 }
-
-// model Expense {
-//   id Int @id @default(autoincrement())
-//   name String
-//   price
-// }
