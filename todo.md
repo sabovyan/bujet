@@ -1,2 +1,5 @@
-- handle session issue
-- fix ui for google auth
+## Second Iteration
+- get rid of useraccout dropdown
+
+## Animations
+
