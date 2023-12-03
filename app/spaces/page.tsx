@@ -24,7 +24,7 @@ export default async function Spaces() {
   return (
     <main className="flex">
       {spaces.length ? (
-        <aside>
+        <section>
           <ul className="flex gap-2">
             {spaces.map((sp) => (
               <li
@@ -37,7 +37,7 @@ export default async function Spaces() {
               </li>
             ))}
           </ul>
-        </aside>
+        </section>
       ) : (
         <div>no space was found</div>
       )}
