@@ -57,7 +57,12 @@ model VerificationToken {
 }
 
 model Space {
-  id    Int    @id @default(autoincrement())
-  name  String
-  users User[]
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  creator   User     @relation(fields: [creatorId], references: [id])
+  creatorId String
+
+  @@unique([creatorId, name], name: "SpaceIdentifier")
 }
