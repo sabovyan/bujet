@@ -4,7 +4,6 @@ import { userAgent } from 'next/server';
 import { auth } from '@/lib/auth';
 
 // import { AddExpense } from './AddExpense/AddExpense';
-import { SpacesNav } from './SpacesNav';
 import { UserAccount } from './UserAccount/UserAccount';
 
 export async function Nav() {
@@ -18,7 +17,6 @@ export async function Nav() {
     <nav className="fixed bottom-0 w-full justify-end items-center flex px-4 py-2 border gap-3">
       {/* TODO move to general place */}
       {/* <AddExpense deviceType={deviceType || 'desktop'} /> */}
-      {session ? <SpacesNav /> : null}
 
       <UserAccount session={session} />
     </nav>

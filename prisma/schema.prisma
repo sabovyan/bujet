@@ -46,6 +46,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   spaces        Space[]
+  Lists         List[]
 }
 
 model VerificationToken {
@@ -57,7 +58,32 @@ model VerificationToken {
 }
 
 model Space {
-  id    Int    @id @default(autoincrement())
+  id    String @id @default(cuid())
   name  String
-  users User[]
+  Lists List[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
+
+  @@unique([creatorId, name], name: "SpaceIdentifier")
+}
+
+model List {
+  id       String   @id @default(cuid())
+  name     String
+  favorite Boolean? @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Space   Space  @relation(fields: [spaceId], references: [id])
+  spaceId String
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
+
+  @@unique([creatorId, name, spaceId], name: "ListIdentifier")
 }

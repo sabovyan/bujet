@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { Session } from 'next-auth';
 
 import { GoogleSignIn, Logout, WebAuthn } from './AuthComponents';
@@ -38,8 +39,14 @@ export function UserAccount({ session }: Props) {
       </DropdownMenuTrigger>
       {session?.user ? (
         <DropdownMenuContent>
-          <DropdownMenuLabel>{session.user.name}</DropdownMenuLabel>
+          <DropdownMenuLabel>
+            <Link href="/">{session.user.name}</Link>
+          </DropdownMenuLabel>
           <DropdownMenuGroup>
+            <DropdownMenuItem>
+              <Link href="/spaces">Spaces</Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem>
               <Logout />
             </DropdownMenuItem>

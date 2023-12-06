@@ -9,7 +9,12 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 
 export function FormField({ name, id, label, ...restInputProps }: InputProps) {
   return (
-    <div className="mb-3 flex flex-col items-start">
+    <div
+      className={`mb-3 flex flex-col items-start ${
+        restInputProps.hidden ? 'hidden' : ''
+      }`}
+      hidden={restInputProps.hidden}
+    >
       <Label htmlFor={id || name}>{label}</Label>
       <Input id={id || name} name={name} {...restInputProps} />
     </div>

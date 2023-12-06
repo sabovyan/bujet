@@ -1,8 +1,16 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import NextAuth from 'next-auth';
+import NextAuth, { DefaultSession } from 'next-auth';
 import Google from 'next-auth/providers/google';
 
 import { prisma } from '@/lib/prisma';
+
+declare module '../node_modules/.pnpm/@auth+core@0.0.0-manual.e9863699/node_modules/@auth/core/types.d.ts' {
+  interface Session {
+    user: {
+      id: string;
+    } & DefaultSession['user'];
+  }
+}
 
 export const { auth, signIn, signOut, handlers } = NextAuth({
   // pages: {
@@ -10,18 +18,10 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
   //   error: '/auth/error'
   // },
   providers: [Google],
-  adapter: PrismaAdapter(prisma)
-  // callbacks: {
-  //   session: ({ session, token, user,  }) => {
-  //     console.log({session, token, user});
-  //     return {
-  //       ...session,
-  //       user: {
-  //         ...session.user,
-  //         id: token.id,
-  //         randomKey: token.randomKey
-  //       }
-  //     };
-  //   }
-  // }
+  adapter: PrismaAdapter(prisma),
+  callbacks: {
+    session: ({ session, user }) => {
+      return { ...session, user };
+    }
+  }
 });
