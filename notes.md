@@ -10,3 +10,6 @@ https://github.com/nextauthjs/next-auth/issues/6640#issuecomment-1441383198
 
 - prisma client issue with next dev server
 https://www.prisma.io/docs/guides/other/troubleshooting-orm/help-articles/nextjs-prisma-client-dev-practices
+
+- next js react dev server redirect issue
+https://github.com/vercel/next.js/issues/55586
