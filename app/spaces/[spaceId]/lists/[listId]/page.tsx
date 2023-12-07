@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 
+import { FavoriteListButton } from '@/components/FavoriteListButton';
 import { prisma } from '@/lib/prisma';
 
 import { SpaceItemParams } from '../../page';
@@ -17,8 +18,15 @@ export default async function List({ params }: { params: ListItemParams }) {
   }
 
   return (
-    <div>
-      <h1>{params.spaceId}</h1>
-    </div>
+    <main>
+      <header className="flex gap-4">
+        <h2 className="text-2xl">{list.name}</h2>
+        <FavoriteListButton
+          spaceId={params.spaceId}
+          listId={list.id}
+          isFave={list.favorite}
+        />
+      </header>
+    </main>
   );
 }

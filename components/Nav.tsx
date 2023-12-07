@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: 0 */
 import { headers } from 'next/headers';
 import { userAgent } from 'next/server';
 
