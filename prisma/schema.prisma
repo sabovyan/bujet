@@ -38,15 +38,16 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
   spaces        Space[]
   Lists         List[]
+  ListItems     ListItem[]
 }
 
 model VerificationToken {
@@ -82,8 +83,30 @@ model List {
   Space   Space  @relation(fields: [spaceId], references: [id])
   spaceId String
 
-  creator   User   @relation(fields: [creatorId], references: [id])
+  creator   User       @relation(fields: [creatorId], references: [id])
   creatorId String
+  items     ListItem[]
 
   @@unique([creatorId, name, spaceId], name: "ListIdentifier")
+}
+
+enum Repitition {
+  DAILY
+  ONCE
+}
+
+model ListItem {
+  id          String     @id @default(cuid())
+  name        String
+  type        Repitition @default(ONCE)
+  completedAt DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  List   List   @relation(fields: [listId], references: [id])
+  listId String
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
 }
