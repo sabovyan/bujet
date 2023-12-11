@@ -37,14 +37,14 @@ export async function createListItem(formData: FormData) {
   revalidatePath(`/space/${spaceId}/list/${listId}/list`);
 }
 
-const deleteListItemSchema = z.object({
+const listItemInteractionSchema = z.object({
   listItemId: z.string(),
   listId: z.string(),
   spaceId: z.string()
 });
 
 export const deleteListItem = async (formData: FormData) => {
-  const parsed = deleteListItemSchema.safeParse({
+  const parsed = listItemInteractionSchema.safeParse({
     listItemId: formData.get('listItemId'),
     listId: formData.get('listId'),
     spaceId: formData.get('spaceId')
@@ -58,6 +58,36 @@ export const deleteListItem = async (formData: FormData) => {
 
   await prisma.listItem.delete({
     where: { id: listItemId }
+  });
+
+  revalidatePath(`/space/${spaceId}/list/${listId}/list`);
+};
+
+const updateListItemSchema = listItemInteractionSchema.merge(
+  z.object({
+    isComplete: z.string().nullable()
+  })
+);
+
+export const toggleCompleteStatus = async (formData: FormData) => {
+  const parsed = updateListItemSchema.safeParse({
+    listItemId: formData.get('listItemId'),
+    listId: formData.get('listId'),
+    spaceId: formData.get('spaceId'),
+    isComplete: formData.get('isComplete')
+  });
+
+  if (!parsed.success) {
+    throw new Error('Invalid form data');
+  }
+
+  const { listId, listItemId, spaceId, isComplete } = parsed.data;
+
+  await prisma.listItem.update({
+    where: { id: listItemId },
+    data: {
+      completedAt: isComplete ? new Date() : null
+    }
   });
 
   revalidatePath(`/space/${spaceId}/list/${listId}/list`);
