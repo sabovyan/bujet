@@ -1,6 +1,8 @@
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
+import { FavoriteListButton } from '@/components/FavoriteListButton';
+import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
 export type SpaceItemParams = { spaceId: string };
@@ -10,6 +12,14 @@ export default async function SingleSpace({
 }: {
   params: SpaceItemParams;
 }) {
+  const session = await auth();
+
+  const id = session?.user?.id;
+
+  if (!id) {
+    redirect('/');
+  }
+
   const space = await prisma.space.findUnique({
     where: { id: paramsSpaceId },
     include: { Lists: true }
@@ -41,14 +51,20 @@ export default async function SingleSpace({
           {space.Lists.map((list) => (
             <li
               key={list.id}
-              className="text-xl text-center min-w-[200px] p-2 rounded-lg border"
+              className="text-xl text-center min-w-[200px] p-2 rounded-lg border flex justify-between"
             >
               <Link
+                // @ts-ignore
                 href={`/spaces/${space.id}/lists/${list.id}`}
-                className="block"
+                className="block flex-grow"
               >
                 {list.name}
               </Link>
+              <FavoriteListButton
+                spaceId={space.id}
+                listId={list.id}
+                isFave={list.favorite}
+              />
             </li>
           ))}
         </ul>

@@ -21,8 +21,6 @@ export default async function Spaces() {
     }
   });
 
-  console.log(spaces);
-
   return (
     <main>
       <header className="mb-8 flex gap-4">
@@ -32,7 +30,7 @@ export default async function Spaces() {
 
         <Link
           href={`/spaces/add`}
-          className="text-xl text-center border rounded-lg min-w-[50px]"
+          className="text-xl text-center border rounded-lg min-w-[49px]"
         >
           +
         </Link>
