@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { Toggle } from '@/components/ui/toggle';
 
 import { deleteListItem, toggleCompleteStatus } from '../../listItem.action';
@@ -47,9 +48,9 @@ export function ToggleCompleteForm({
         await toggleCompleteStatus(formData);
       }}
     >
-      <Toggle type="submit" aria-label="complete">
+      <Button type="submit" aria-label="complete" variant="ghost" size="icon">
         {type === 'COMPLETED' ? '↻' : '✓'}
-      </Toggle>
+      </Button>
     </form>
   );
 }

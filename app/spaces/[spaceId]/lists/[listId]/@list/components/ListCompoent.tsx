@@ -1,11 +1,9 @@
 import clsx from 'clsx';
-import Image from 'next/image';
 
 import { Label } from '@/components/ui/label';
-import { Toggle } from '@/components/ui/toggle';
 
 import { RemoveForm, ToggleCompleteForm } from './listsForms';
-import recurringIcon from '../../recurring_icon.png';
+import { RepeatStatusUpdateForm } from './RepeatStatusUpdateForm';
 
 type ListItems = Array<{
   id: string;
@@ -39,23 +37,18 @@ export function ListComponent<T extends ListItems>({
         )}
       >
         {items?.map((item) => {
-          const isDaily = item.type === 'DAILY';
-
           return (
             <li
               key={item.id}
-              className="flex gap-4 items-center justify-between border "
+              className="flex gap-4 items-center justify-between border rounded-lg"
             >
               <div className="flex gap-4 items-center">
-                <Toggle title="toggle recursive state" pressed={isDaily}>
-                  <Image
-                    src={recurringIcon}
-                    alt="recurring icon"
-                    width={24}
-                    height={24}
-                    className={`${isDaily ? 'opacity-100' : 'opacity-20'}`}
-                  />
-                </Toggle>
+                <RepeatStatusUpdateForm
+                  listId={listId}
+                  listItemId={item.id}
+                  spaceId={spaceId}
+                  itemType={item.type}
+                />
                 <Label
                   className={clsx(
                     'text-sm mb-0',

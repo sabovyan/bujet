@@ -17,7 +17,7 @@ export async function createListItem(formData: FormData) {
   const parsed = createListItemSchema.safeParse(Object.fromEntries(formData));
 
   if (!parsed.success) {
-    throw new Error('Invalid form data');
+    return 'Invalid form data';
   }
 
   if (!session) {
@@ -51,7 +51,7 @@ export const deleteListItem = async (formData: FormData) => {
   });
 
   if (!parsed.success) {
-    throw new Error('Invalid form data');
+    return 'Invalid form data';
   }
 
   const { listId, listItemId, spaceId } = parsed.data;
@@ -78,7 +78,7 @@ export const toggleCompleteStatus = async (formData: FormData) => {
   });
 
   if (!parsed.success) {
-    throw new Error('Invalid form data');
+    return 'Invalid form data';
   }
 
   const { listId, listItemId, spaceId, isComplete } = parsed.data;
@@ -87,6 +87,36 @@ export const toggleCompleteStatus = async (formData: FormData) => {
     where: { id: listItemId },
     data: {
       completedAt: isComplete ? new Date() : null
+    }
+  });
+
+  revalidatePath(`/space/${spaceId}/list/${listId}/list`);
+};
+
+const toggleRepeatStatusSchema = listItemInteractionSchema.merge(
+  z.object({
+    repeat: z.enum(['DAILY', 'ONCE'])
+  })
+);
+
+export const toggleRepeatStatus = async (formData: FormData) => {
+  const parsed = toggleRepeatStatusSchema.safeParse({
+    listItemId: formData.get('listItemId'),
+    listId: formData.get('listId'),
+    spaceId: formData.get('spaceId'),
+    repeat: formData.get('repeat')
+  });
+
+  if (!parsed.success) {
+    return 'Invalid form data';
+  }
+
+  const { listId, listItemId, spaceId, repeat } = parsed.data;
+
+  await prisma.listItem.update({
+    where: { id: listItemId },
+    data: {
+      type: repeat
     }
   });
 
