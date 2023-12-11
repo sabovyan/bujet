@@ -4,8 +4,8 @@ import Image from 'next/image';
 import { Label } from '@/components/ui/label';
 import { Toggle } from '@/components/ui/toggle';
 
-import { deleteListItem, toggleCompleteStatus } from '../listItem.action';
-import recurringIcon from '../recurring_icon.png';
+import { RemoveForm, ToggleCompleteForm } from './listsForms';
+import recurringIcon from '../../recurring_icon.png';
 
 type ListItems = Array<{
   id: string;
@@ -69,37 +69,17 @@ export function ListComponent<T extends ListItems>({
                 </Label>
               </div>
               <div className="flex gap-2">
-                <form
-                  action={async (formData) => {
-                    'use server';
-                    formData.append('listId', listId);
-                    formData.append('listItemId', item.id);
-                    formData.append('spaceId', spaceId);
-                    if (type === 'ONGOING') {
-                      formData.append('isComplete', 'on');
-                    }
-
-                    await toggleCompleteStatus(formData);
-                  }}
-                >
-                  <Toggle type="submit" aria-label="complete">
-                    {type === 'COMPLETED' ? '↻' : '✓'}
-                  </Toggle>
-                </form>
-                <form
-                  action={async (formData) => {
-                    'use server';
-                    formData.append('listId', listId);
-                    formData.append('listItemId', item.id);
-                    formData.append('spaceId', spaceId);
-
-                    await deleteListItem(formData);
-                  }}
-                >
-                  <Toggle type="submit" aria-label="remove">
-                    &#x292B;
-                  </Toggle>
-                </form>
+                <ToggleCompleteForm
+                  listId={listId}
+                  itemId={item.id}
+                  spaceId={spaceId}
+                  type={type}
+                />
+                <RemoveForm
+                  listId={listId}
+                  itemId={item.id}
+                  spaceId={spaceId}
+                />
               </div>
             </li>
           );

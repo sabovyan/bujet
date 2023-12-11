@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma';
 
-import { ListComponent } from './ListCompoent';
+import { ListComponent } from './components/ListCompoent';
 import { SpaceItemParams } from '../../../page';
 
 type ListItemParams = SpaceItemParams & {
