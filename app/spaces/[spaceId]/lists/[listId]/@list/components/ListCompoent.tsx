@@ -43,12 +43,7 @@ export function ListComponent<T extends ListItems>({
               className="flex gap-4 items-center justify-between border rounded-lg"
             >
               <div className="flex gap-4 items-center">
-                <RepeatStatusUpdateForm
-                  listId={listId}
-                  listItemId={item.id}
-                  spaceId={spaceId}
-                  itemType={item.type}
-                />
+                <RepeatStatusUpdateForm itemId={item.id} itemType={item.type} />
                 <Label
                   className={clsx(
                     'text-sm mb-0',

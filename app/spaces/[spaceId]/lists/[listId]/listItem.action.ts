@@ -93,32 +93,20 @@ export const toggleCompleteStatus = async (formData: FormData) => {
   revalidatePath(`/space/${spaceId}/list/${listId}/list`);
 };
 
-const toggleRepeatStatusSchema = listItemInteractionSchema.merge(
-  z.object({
-    repeat: z.enum(['DAILY', 'ONCE'])
-  })
-);
+const toggleRepeatStatusSchema = z.object({
+  repeat: z.enum(['DAILY', 'ONCE']),
+  id: z.string()
+});
 
 export const toggleRepeatStatus = async (formData: FormData) => {
   const parsed = toggleRepeatStatusSchema.safeParse({
-    listItemId: formData.get('listItemId'),
-    listId: formData.get('listId'),
-    spaceId: formData.get('spaceId'),
+    id: formData.get('id'),
     repeat: formData.get('repeat')
   });
 
-  if (!parsed.success) {
-    return 'Invalid form data';
-  }
+  if (!parsed.success) return 'Invalid form data';
 
-  const { listId, listItemId, spaceId, repeat } = parsed.data;
+  const { id, repeat } = parsed.data;
 
-  await prisma.listItem.update({
-    where: { id: listItemId },
-    data: {
-      type: repeat
-    }
-  });
-
-  revalidatePath(`/space/${spaceId}/list/${listId}/list`);
+  await prisma.listItem.update({ where: { id }, data: { type: repeat } });
 };
