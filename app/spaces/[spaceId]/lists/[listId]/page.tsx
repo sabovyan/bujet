@@ -19,6 +19,7 @@ export default async function List({ params }: { params: ListItemParams }) {
   if (!id) {
     redirect('/');
   }
+
   const list = await prisma.list.findUnique({
     where: { id: params.listId }
   });

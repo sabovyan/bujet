@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 
-import { FavoriteListButton } from '@/components/FavoriteListButton';
+import { SpaceList } from '@/components/ListItem';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
@@ -49,23 +49,7 @@ export default async function SingleSpace({
       ) : (
         <ul className="flex flex-wrap gap-2">
           {space.Lists.map((list) => (
-            <li
-              key={list.id}
-              className="text-xl text-center min-w-[200px] p-2 rounded-lg border flex justify-between"
-            >
-              <Link
-                // @ts-ignore
-                href={`/spaces/${space.id}/lists/${list.id}`}
-                className="block flex-grow"
-              >
-                {list.name}
-              </Link>
-              <FavoriteListButton
-                spaceId={space.id}
-                listId={list.id}
-                isFave={list.favorite}
-              />
-            </li>
+            <SpaceList key={list.id} list={list} />
           ))}
         </ul>
       )}

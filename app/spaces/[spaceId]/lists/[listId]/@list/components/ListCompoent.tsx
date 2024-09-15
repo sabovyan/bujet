@@ -14,10 +14,10 @@ type ListItems = Array<{
 
 type Props<List extends ListItems> = {
   type: 'ONGOING' | 'COMPLETED';
-  items: List;
+  items?: List;
   listId: string;
   spaceId: string;
-  title: string;
+  title?: string;
 };
 
 export function ListComponent<T extends ListItems>({
@@ -29,7 +29,7 @@ export function ListComponent<T extends ListItems>({
 }: Props<T>) {
   return (
     <>
-      <h3 className="text-lg mt-8">{title}</h3>
+      {title && <h3 className="text-lg mt-8">{title}</h3>}
       <ul
         className={clsx(
           'flex flex-col gap-4 mt-4 max-w-[450px]',
