@@ -10,6 +10,9 @@
     ".next/**/*"
   ],
   "rules": {
+    "no-unused-vars": "warn",
+    "no-console": "error",
+    "newline-before-return": "error",
     "import/order": [
       "error",
       {

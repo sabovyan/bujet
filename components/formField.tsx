@@ -1,5 +1,7 @@
 import { InputHTMLAttributes, SelectHTMLAttributes } from 'react';
 
+import clsx from 'clsx';
+
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 
@@ -10,9 +12,10 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 export function FormField({ name, id, label, ...restInputProps }: InputProps) {
   return (
     <div
-      className={`mb-3 flex flex-col items-start ${
-        restInputProps.hidden ? 'hidden' : ''
-      }`}
+      className={clsx(
+        `mb-3 flex flex-col items-start `,
+        restInputProps.hidden && 'hidden'
+      )}
       hidden={restInputProps.hidden}
     >
       <Label htmlFor={id || name}>{label}</Label>
